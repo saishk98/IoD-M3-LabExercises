@@ -7,33 +7,33 @@ const books = [
 ];
 
 // a) Function to get the title of the book with the matching id
-function getBookTitle(bookId: number): string | undefined {
+function getBookTitle(bookId) {
     const book = books.find(book => book.id === bookId);
-    return book ? book.title : undefined;
+    return book ? book.title : 'Book not found';
 }
 
 // b) Function to get all books written before 1950
-function getOldBooks(): typeof books {
+function getOldBooks() {
     return books.filter(book => book.year < 1950);
 }
 
 // c) Function to add a new genre property to all books
-function addGenre(): typeof books {
+function addGenre() {
     return books.map(book => ({ ...book, genre: 'classic' }));
 }
 
 // d) Function to get titles of books written by authors whose names start with authorInitial
-function getTitles(authorInitial: string): string[] {
+function getTitles(authorInitial) {
     return books
         .filter(book => book.author.startsWith(authorInitial))
         .map(book => book.title);
 }
 
 // e) Function to get the latest book
-function latestBook(): typeof books[0] | undefined {
-    let latest: typeof books[0] | undefined = undefined;
+function latestBook() {
+    let latest = books[0];
     books.forEach(book => {
-        if (!latest || book.year > latest.year) {
+        if (book.year > latest.year) {
             latest = book;
         }
     });
@@ -41,8 +41,8 @@ function latestBook(): typeof books[0] | undefined {
 }
 
 // Testing the functions
-console.log(getBookTitle(1)); // Expected: 'The Great Gatsby'
-console.log(getOldBooks()); // Expected: Array of books written before 1950
-console.log(addGenre()); // Expected: Array of books with a new genre property 'classic'
-console.log(getTitles('H')); // Expected: ['To Kill a Mockingbird']
-console.log(latestBook()); // Expected: { id: 2, title: 'To Kill a Mockingbird', author: 'Harper Lee', year: 1960 }
+console.log(getBookTitle(3)); // Should return: '1984'
+console.log(getOldBooks());   // Should return all books written before 1950
+console.log(addGenre());      // Should add genre: 'classic' to each book
+console.log(getTitles('F'));  // Should return titles by authors starting with 'F'
+console.log(latestBook());    // Should return the book with the most recent publication year
